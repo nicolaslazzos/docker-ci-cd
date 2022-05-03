@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      # map the current directory from the local file system to the /app folder of the container file system
+      - .:/app
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # no need to map the port because its already mapped by the other service
+    volumes:
+      - /app/node_modules
+      - .:/app
+    depends_on:
+      - web
+    # overwrite the dockerfile default command
+    command: [ "npm", "run", "test:ci" ]
