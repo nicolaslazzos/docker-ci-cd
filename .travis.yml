@@ -1,0 +1,13 @@
+
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install: 
+  - docker build -t nicolaslazzos/docker-ci-cd -f Dockerfile.dev . 
+
+script:
+  - docker run -e CI=true nicolaslazzos/docker-ci-cd npm run test:ci
