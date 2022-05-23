@@ -10,9 +10,6 @@ RUN npm i
 COPY . .
 RUN npm run build
 
-# expose the listening port
-EXPOSE 3000
-
 # run container as non-root user, the node user is provided in the node.js alpine base image
 USER node
 
